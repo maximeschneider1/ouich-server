@@ -26,7 +26,7 @@ func (s *server) handleGetHome() httprouter.Handle {
 		w.WriteHeader(http.StatusOK)
 		err = json.NewEncoder(w).Encode(resp)
 		if err != nil {
-			log.Printf("Error encoding response : %v", err)
+			log.Printf("Error encoding response: %v", err)
 		}
 	}
 }
