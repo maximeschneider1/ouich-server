@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/maximeschneider1/ouich-server/handler"
+)
 
 func main() {
-	fmt.Println("Sah quel plaisir")
+	handler.StartWebServer()
 }
