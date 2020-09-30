@@ -1,33 +1,46 @@
 package handler
 
 import (
-	"github.com/julienschmidt/httprouter"
+	"database/sql"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
+	"github.com/julienschmidt/httprouter"
 )
 
 // server is the base structure of the API
 type server struct {
-	router *httprouter.Router
-
-	// Here I would put a DB connection if there was one
+	router   *httprouter.Router
+	database *sql.DB
 }
 
 // response contains all response infos at a glance
 type response struct {
-	StatusCode int  `json:"status_code"`
+	StatusCode int    `json:"status_code"`
 	Error      string `json:"error"`
 	Message    string `json:"message"`
 	Meta       struct {
 		Query       interface{} `json:"query,omitempty"`
-		ResultCount int         `json:"result_count,omitempty"`} `json:"meta"`
+		ResultCount int         `json:"result_count,omitempty"`
+	} `json:"meta"`
 	Data []interface{} `json:"data"`
 }
 
 // StartWebServer is the function responsible for launching the API
 func StartWebServer() {
+	if err := godotenv.Load(); err != nil {
+		panic(err)
+	}
+	db, _ := sql.Open("postgres", "postgres://postgres:"+os.Getenv("DB_PASSWORD")+"@"+os.Getenv("DB_HOST")+":5432/"+os.Getenv("DB_NAME")+"?sslmode=disable")
+	err := db.Ping()
+	if err != nil {
+		panic(err)
+	}
 	s := server{
-		router : httprouter.New(),
+		router:   httprouter.New(),
+		database: db,
 	}
 	s.router.PanicHandler = handlePanic
 
