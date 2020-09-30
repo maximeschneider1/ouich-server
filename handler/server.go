@@ -38,7 +38,11 @@ func StartWebServer() {
 
 // routes function launches all application's routes
 func (s *server) routes() {
+	//home
 	s.router.GET("/home", s.handleGetHome())
+	//replique
+
+	// random
 }
 
 // Gracefully handle panic without crashing the server

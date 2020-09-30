@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"VelibFinder/handler"
+)
 
 func main() {
-	fmt.Println("Sah quel plaisir")
+	handler.StartWebServer()
 }
