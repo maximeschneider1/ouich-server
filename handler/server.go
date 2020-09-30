@@ -21,9 +21,9 @@ type server struct {
 
 // response contains all response infos at a glance
 type response struct {
-	StatusCode int    `json:"status_code"`
-	Error      string `json:"error"`
-	Message    string `json:"message"`
+	StatusCode int         `json:"status_code"`
+	Error      interface{} `json:"error"`
+	Message    string      `json:"message"`
 	Meta       struct {
 		Query       interface{} `json:"query,omitempty"`
 		ResultCount int         `json:"result_count,omitempty"`
