@@ -9,7 +9,6 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -33,9 +32,6 @@ type response struct {
 
 // StartWebServer is the function responsible for launching the API
 func StartWebServer() {
-	if err := godotenv.Load(); err != nil {
-		panic(err)
-	}
 	psqlInfo := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=require",
 		os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASS"), os.Getenv("DB_NAME"))
 	db, err := sql.Open("postgres", psqlInfo)
