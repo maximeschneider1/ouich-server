@@ -13,6 +13,7 @@ import (
 func (s *server) handleGetHome() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
 		resp := response{}
 		results, err := dao.QueryAllQuotes(s.database)
@@ -26,7 +27,7 @@ func (s *server) handleGetHome() httprouter.Handle {
 		w.WriteHeader(http.StatusOK)
 		err = json.NewEncoder(w).Encode(resp)
 		if err != nil {
-			log.Printf("Error encoding response : %v", err)
+			log.Printf("Error encoding response: %v", err)
 		}
 	}
 }
