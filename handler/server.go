@@ -48,7 +48,7 @@ func StartWebServer() {
 	}
 	s.router.PanicHandler = handlePanic
 	s.routes()
-	log.Fatal(http.ListenAndServe("", s.router))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), s.router))
 }
 
 // routes function launches all application's routes
