@@ -1,6 +1,6 @@
 package model
 
-var Quote struct {
+type Quote struct {
 	id int
 	title string
 	content string

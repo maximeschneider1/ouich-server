@@ -1,7 +1,7 @@
 package main
 
 import (
-	"VelibFinder/handler"
+	"github.com/maximeschneider1/ouich-server/handler"
 )
 
 func main() {

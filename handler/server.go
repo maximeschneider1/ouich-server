@@ -2,9 +2,11 @@ package handler
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	_ "github.com/lib/pq"
 
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
@@ -33,14 +35,24 @@ func StartWebServer() {
 	if err := godotenv.Load(); err != nil {
 		panic(err)
 	}
-	db, _ := sql.Open("postgres", "postgres://postgres:"+os.Getenv("DB_PASSWORD")+"@"+os.Getenv("DB_HOST")+":5432/"+os.Getenv("DB_NAME")+"?sslmode=disable")
-	err := db.Ping()
+
+	psqlInfo := fmt.Sprintf("host=%s port=5432 user=ikqzcemalavckm "+
+		"password=%s dbname=%s sslmode=disable",
+		os.Getenv("DB_HOST") , os.Getenv("DB_PASS"), os.Getenv("DB_NAME"))
+
+	fmt.Println("pSSSS", psqlInfo)
+
+	db, err := sql.Open("postgres", psqlInfo); if err != nil {
+		fmt.Println("il y a une erreur", err)
+	}
+
+	err = db.Ping()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	s := server{
 		router:   httprouter.New(),
-		database: db,
+		//database: db,
 	}
 	s.router.PanicHandler = handlePanic
 
