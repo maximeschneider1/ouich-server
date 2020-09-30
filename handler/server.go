@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+
 	_ "github.com/lib/pq"
 
 	"github.com/joho/godotenv"
@@ -38,12 +39,13 @@ func StartWebServer() {
 
 	psqlInfo := fmt.Sprintf("host=%s port=5432 user=ikqzcemalavckm "+
 		"password=%s dbname=%s sslmode=disable",
-		os.Getenv("DB_HOST") , os.Getenv("DB_PASS"), os.Getenv("DB_NAME"))
+		os.Getenv("DB_HOST"), os.Getenv("DB_PASS"), os.Getenv("DB_NAME"))
 
 	fmt.Println("pSSSS", psqlInfo)
 
-	db, err := sql.Open("postgres", psqlInfo); if err != nil {
-		fmt.Println("il y a une erreur", err)
+	db, err := sql.Open("postgres", psqlInfo)
+	if err != nil {
+		fmt.Println("Erreur : ", err)
 	}
 
 	err = db.Ping()
@@ -51,7 +53,7 @@ func StartWebServer() {
 		fmt.Println(err)
 	}
 	s := server{
-		router:   httprouter.New(),
+		router: httprouter.New(),
 		//database: db,
 	}
 	s.router.PanicHandler = handlePanic

@@ -1,8 +1,8 @@
 package model
 
 type Quote struct {
-	id int
-	title string
-	content string
-	path string
+	ID      int    `json:"id,omitempty"`
+	Title   string `json:"title,omitempty"`
+	Content string `json:"content,omitempty"`
+	Path    string `json:"path,omitempty"`
 }
