@@ -23,3 +23,8 @@ func QueryAllQuotes(db *sql.DB) ([]model.Quote, error) {
 	}
 	return ac, nil
 }
+
+
+// 1. Prendre le payload
+// 1. le transformer en Go struct
+// 1.

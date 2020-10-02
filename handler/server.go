@@ -59,6 +59,7 @@ func StartWebServer() {
 func (s *server) routes() {
 	//home
 	s.router.GET("/", s.handleGetHome())
+	s.router.POST("/new", s.handlePostQuote())
 	//replique
 	// random
 }
